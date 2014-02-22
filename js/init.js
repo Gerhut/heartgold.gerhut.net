@@ -1,5 +1,5 @@
 ﻿(function () {
-    var name = 'user';//测试用户名
+    var name
     var host = window.location.host, gamehost = 'pokemod.gerhut.net';
     var version;
     switch (host) {
@@ -10,10 +10,14 @@
 
     var urlImg = 'http://' + gamehost + '/' + version
       , urlChat = 'http://' + gamehost + '/' + version + '/chat'
+      , urlInfo = 'http://' + gamehost + '/' + version + '/info'
       , urlKeys = 'http://' + gamehost + '/' + version + '/input/gerhut/key'
       , urlMouse = 'http://' + gamehost + '/' + version + '/input/gerhut/mouse';
     var timeout = -1
-    var gamescreen = document.getElementById('imgGamescreen'), chatlist = document.getElementById('chatlist'), message = document.getElementById('txtMessage');
+    var gamescreen = document.getElementById('imgGamescreen')
+        , chatlist = document.getElementById('chatlist')
+        , inputlist = document.getElementById('inputlist')
+        , message = document.getElementById('txtMessage');
 
     window.sendkey = function (code) {
         jsonp(urlKeys + '/' + code, function (data) {
@@ -25,9 +29,10 @@
         setTimeout(function () { gamescreen.src = urlImg + '/?' + Date.now(); }, 100);
     }
 
-    window.refreshChat = function() {
-        jsonp(urlChat, function (data) {
-            chatlist.innerHTML = data;
+    window.refreshChat = function () {
+        jsonp(urlInfo, function (chatData, inputData) {
+            chatlist.innerHTML = chatData;
+            inputlist.innerHTML = inputData;
             setTimeout(window.refreshChat, 500);
         })
     }
@@ -39,9 +44,14 @@
             message.value = ''
         }
     }
-    window.sendmouse = function(event) {
+    window.sendmouse = function (event) {
         jsonp(urlMouse + '/' + Math.round(event.offsetX) + ',' + Math.round(event.offsetY), function (data) {
             return;
         })
+    }
+
+    window.run = function (udata) {
+        name = udata.uname
+        window.refreshChat()
     }
 })()
