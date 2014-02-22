@@ -60,7 +60,16 @@ div {
         border-top-left-radius: 9px;
         border-bottom-left-radius: 9px;
     }
-
+    #chatbox>pre{
+    border: 1px dotted black;
+    white-space:pre-wrap;
+    overflow:auto;
+    height: 100px;
+    overflow: auto;
+    margin-top: 5px;
+    width:100%;
+    display:block;
+}
     #chatbox button {
         height: 20px;
         width: 60px;
@@ -75,16 +84,7 @@ div {
             background: #EEEEEE;
         }
 
-#chatbox>pre {
-    border: 1px dotted black;
-    white-space:pre-wrap;
-    overflow:auto;
-    height: 100px;
-    overflow: auto;
-    margin-top: 5px;
-    width:100%;
-    display:block;
-}
+
 #keypad {
 margin-top:5px;
 }
