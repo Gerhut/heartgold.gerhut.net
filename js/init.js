@@ -1,29 +1,34 @@
 ﻿(function () {
     var name = 'user';//测试用户名
     var host = window.location.host, gamehost = 'pokemod.gerhut.net';
-    var version, port;
+    var version;
     switch (host) {
-        case 'platium.gerhut.net': version = 'platium'; port = '4930'; break;
-        case 'heartgold.gerhut.net': version = 'heartgold'; port = '2510'; break;
-        default: version = 'platium'; version = 'platium'; port = '4930';
+        case 'platium.gerhut.net': version = 'platinum'; break;
+        case 'heartgold.gerhut.net': version = 'heartgold'; break;
+        default: version = 'platium'; version = 'platinum';
     }
 
-    var urlImg = 'http://' + gamehost + ':' + port, urlChat = 'http://' + gamehost + ':' + port + '/chat', urlKeys = 'http://' + gamehost + ':' + port + '/keys';
+    var urlImg = 'http://' + gamehost + '/' + version
+      , urlChat = 'http://' + gamehost + '/' + version + '/chat'
+      , urlKeys = 'http://' + gamehost + '/' + version + '/input/gerhut/key'
+      , urlMouse = 'http://' + gamehost + '/' + version + '/input/gerhut/mouse';
     var timeout = -1
     var gamescreen = document.getElementById('imgGamescreen'), chatlist = document.getElementById('chatlist'), message = document.getElementById('txtMessage');
 
-    window.load = function () {
-
-        if (window.timeout > -1)
-            clearTimeout(timeout)
-        timeout = setTimeout(refresh, 100)
+    window.sendkey = function (code) {
+        jsonp(urlKeys + '/' + code, function (data) {
+            return;
+        })
     }
 
-    function refresh() {
-        gamescreen.src = urlImg + '/?' + Date.now();
+    window.imageLoaded = function () {
+        setTimeout(function () { gamescreen.src = urlImg + '/?' + Date.now(); }, 100);
+    }
+
+    window.refreshChat = function() {
         jsonp(urlChat, function (data) {
-            chatlist.textContent = data;
-            setTimeout(refresh, 2000);
+            chatlist.innerHTML = data;
+            setTimeout(window.refreshChat, 500);
         })
     }
     window.talk = function () {
@@ -34,5 +39,9 @@
             message.value = ''
         }
     }
-
+    window.sendmouse = function(event) {
+        jsonp(urlMouse + '/' + Math.round(event.offsetX) + ',' + Math.round(event.offsetY), function (data) {
+            return;
+        })
+    }
 })()
