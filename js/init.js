@@ -11,8 +11,8 @@
     var urlImg = 'http://' + gamehost + '/' + version
       , urlChat = 'http://' + gamehost + '/' + version + '/chat'
       , urlInfo = 'http://' + gamehost + '/' + version + '/info'
-      , urlKeys = 'http://' + gamehost + '/' + version + '/input/gerhut/key'
-      , urlMouse = 'http://' + gamehost + '/' + version + '/input/gerhut/mouse';
+      , urlKeys = 'http://' + gamehost + '/' + version + '/input'
+      , urlMouse = 'http://' + gamehost + '/' + version + '/input';
     var timeout = -1
     var gamescreen = document.getElementById('imgGamescreen')
         , chatlist = document.getElementById('chatlist')
@@ -20,7 +20,7 @@
         , message = document.getElementById('txtMessage');
 
     window.sendkey = function (code) {
-        jsonp(urlKeys + '/' + code, function (data) {
+        jsonp(urlKeys + '/' + name + '/key/' + code, function (data) {
             return;
         })
     }
@@ -45,7 +45,7 @@
         }
     }
     window.sendmouse = function (event) {
-        jsonp(urlMouse + '/' + Math.round(event.offsetX) + ',' + Math.round(event.offsetY), function (data) {
+        jsonp(urlMouse + '/' + name + '/mouse/' + Math.round(event.offsetX) + ',' + Math.round(event.offsetY), function (data) {
             return;
         })
     }
