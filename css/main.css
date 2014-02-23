@@ -50,8 +50,12 @@ div {
     cursor:pointer;
 }
     #mainscreen > span {
-    display:none;
     text-align:center;
+    vertical-align: middle;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    white-space: nowrap;
     position:absolute;
     cursor:pointer;
     color:white;

@@ -1,12 +1,12 @@
 ﻿(function () {
     var name
-    var lastclick
+    var lastclick = ''
     var host = window.location.host, gamehost = 'pokemod.gerhut.net';
     var version;
     switch (host) {
-        case 'platium.gerhut.net': version = 'platinum'; break;
+        case 'platinum.gerhut.net': version = 'platinum'; break;
         case 'heartgold.gerhut.net': version = 'heartgold'; break;
-        default: version = 'platinum';
+        default: version = 'heartgold';
     }
 
     var urlImg = 'http://' + gamehost + '/' + version
@@ -34,16 +34,27 @@
         jsonp(urlInfo, function (chatData, inputData, touchData) {
             chatlist.innerHTML = chatData;
             inputlist.innerHTML = inputData;
-            touch = touchData.toString().split(',');
-            if (lastclick != touchData) {
+            if (touchData.length) {
+                for ( var i = 0, touch = touchData[i];
+                      touch;
+                      i += 1, touch = touchData[i]) {
 
-                var c;
-                var name = touch[0]
-                var x = touch[1]
-                var y = touch[2]
-                $("#mainscreen").append(c = $("<span>" + name + "</span>"));
-                c.css('top', y - c.height() / 2).css('left', x - c.width() / 2).fadeIn(300, function () { c.fadeOut(300, function () { c.remove() }); });
-                lastclick = touchData;
+                    var c;
+                    var name = touch[0]
+                    var x = touch[1]
+                    var y = touch[2]
+                    $("#mainscreen").append(
+                        $("<span>").text(name).css({
+                            'top': y,
+                            'left': x
+                        }).fadeIn(300).fadeOut(300, function () {
+                            $(this).remove()[0]
+                        })
+                    );
+                    if (lastclick === touch.toString())
+                        break;
+                }
+                lastclick = touchData[0].toString();
             }
             setTimeout(window.refreshChat, 500);
         })
