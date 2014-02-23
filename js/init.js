@@ -1,5 +1,6 @@
 ﻿(function () {
     var name
+    var lastclick
     var host = window.location.host, gamehost = 'pokemod.gerhut.net';
     var version;
     switch (host) {
@@ -33,13 +34,17 @@
         jsonp(urlInfo, function (chatData, inputData, touchData) {
             chatlist.innerHTML = chatData;
             inputlist.innerHTML = inputData;
-            touchData = touchData.toString().split(',');
-            var c;
-            var name = touchData[0]
-            var x = touchData[1]
-            var y = touchData[2]
-            $("#mainscreen").append(c = $("<span>" + name + "</span>"));
-            c.css('top', y - c.height() / 2).css('left', x - c.width() / 2).fadeIn(300, function () { c.fadeOut(300, function () { c.remove() }); });
+            touch = touchData.toString().split(',');
+            if (lastclick != touchData) {
+
+                var c;
+                var name = touch[0]
+                var x = touch[1]
+                var y = touch[2]
+                $("#mainscreen").append(c = $("<span>" + name + "</span>"));
+                c.css('top', y - c.height() / 2).css('left', x - c.width() / 2).fadeIn(300, function () { c.fadeOut(300, function () { c.remove() }); });
+                lastclick = touchData;
+            }
             setTimeout(window.refreshChat, 500);
         })
     }
