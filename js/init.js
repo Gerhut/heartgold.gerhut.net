@@ -47,9 +47,9 @@
                     var y = touch[2]
                     $("#mainscreen").append(
                         $("<span>").text(name).css({
-                            'top': y,
-                            'left': x
-                        }).fadeIn(300).fadeOut(300, function () {
+                            'top': y-$(this).height()/2,
+                            'left': x-$(this).width()/2
+                        }).fadeIn(400).fadeOut(400, function () {
                             $(this).remove()[0]
                         })
                     );

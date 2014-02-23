@@ -34,16 +34,17 @@
         jsonp(urlInfo, function (chatData, inputData, touchData) {
             chatlist.innerHTML = chatData;
             inputlist.innerHTML = inputData;
-            touch = touchData.toString().split(',');
-            if (lastclick != touchData) {
-
+            touch = touchData[0];
+            //alert(lastclick + '/' + touch);
+            if (lastclick != touch) {
+                
                 var c;
                 var name = touch[0]
                 var x = touch[1]
                 var y = touch[2]
                 $("#mainscreen").append(c = $("<span>" + name + "</span>"));
-                c.css('top', y - c.height() / 2).css('left', x - c.width() / 2).fadeIn(300, function () { c.fadeOut(300, function () { c.remove() }); });
-                lastclick = touchData;
+                c.css('top', y - c.height() / 2).css('left', x - c.width() / 2).fadeIn(250, function () { c.fadeOut(250, function () { c.remove() }); });
+                lastclick = touch;
             }
             setTimeout(window.refreshChat, 500);
         })
