@@ -42,11 +42,24 @@ div {
     user-select: none;
 }
 
-#gamescreen, mainscreen {
+#mainscreen {
     width: 256px;
     height: 384px;
+    overflow:hidden;
+    position:relative;
+    cursor:pointer;
 }
-
+    #mainscreen > span {
+    display:none;
+    text-align:center;
+    position:absolute;
+    cursor:pointer;
+    color:white;
+    text-shadow:1px 1px 1px red;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select:none;
+    }
 #chatbox {
     width: 100%;
     margin-top:5px;

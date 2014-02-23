@@ -5,7 +5,7 @@
     switch (host) {
         case 'platium.gerhut.net': version = 'platinum'; break;
         case 'heartgold.gerhut.net': version = 'heartgold'; break;
-        default: version = 'platinum';
+        default: version = 'platium'; version = 'heartgold';
     }
 
     var urlImg = 'http://' + gamehost + '/' + version
