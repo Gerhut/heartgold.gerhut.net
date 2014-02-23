@@ -39,6 +39,8 @@
                       touch;
                       i += 1, touch = touchData[i]) {
 
+                    if (lastclick === touch.toString())
+                        break;
                     var c;
                     var name = touch[0]
                     var x = touch[1]
@@ -51,8 +53,6 @@
                             $(this).remove()[0]
                         })
                     );
-                    if (lastclick === touch.toString())
-                        break;
                 }
                 lastclick = touchData[0].toString();
             }
